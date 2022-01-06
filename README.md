@@ -4,7 +4,7 @@
 
 # Pre-req
 
-- Download and install [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet)
+- Download and install [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet)
 - Install VS Code
 
 ## Create .Net Core 3.1 WebApp project 
