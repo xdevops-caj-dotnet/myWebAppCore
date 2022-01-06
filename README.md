@@ -1,0 +1,71 @@
+[TOC]
+
+# Run .NET Core 3.1 WebApp on OpenShift
+
+# Pre-req
+
+- Download and install [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet)
+- Install VS Code
+
+## Create .Net Core 3.1 WebApp project 
+
+If don't want to create project, you can directly clone this project.
+
+```bash
+# check .net sdks
+dotnet --list-sdks
+
+# create `global.json` file to switch .net sdk
+mkdir core
+cd core
+dotnet new `global.json` --sdk-version 3.1.416
+```
+The generated `global.json` file:
+```json
+{
+  "sdk": {
+    "version": "3.1.416"
+  }
+}
+```
+
+Create .NET Core 3.1 WebApp project:
+```bash
+dotnet new webApp -o myWebAppCore --no-https
+```
+
+Launch the WebApp:
+```bash
+cd myWebAppCore
+dotnet run
+```
+
+Access the webapp by browser.
+
+## Deploy .NET Core 3.1 WebApp to OpenShift 
+
+```bash
+
+export GUID=will
+
+oc new-project ${GUID}-dotnet-demo
+
+# Ensure 'dotnet:3.1-ubi8' builder image stream tag exist
+oc get imagestreamtag  -n openshift | grep 'dotnet:3.1-ubi8'
+
+# Create application by 'dotnet:3.1-ubi8' builder image stream tag
+oc new-app dotnet:3.1-ubi8~https://github.com/xdevops-caj-dotnet/myWebAppCore.git --name my-web-app-core
+
+# Check build logs
+oc logs -f bc/my-web-app-core
+
+# Expose service
+oc get svc
+oc expose svc my-web-app-core
+
+# Check route of the WebApp
+oc get route
+
+```
+
+
