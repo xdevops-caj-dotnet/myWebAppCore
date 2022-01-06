@@ -77,8 +77,6 @@ Access the WebApp by browser, Example: <http://my-web-app-core-will-dotnet-demo.
 
 Open the build config of `my-web-app-core`, and copy the GitHub webhook URL with secret.
 
-https://api.ocpdemo.sandbox1398.opentlc.com:6443/apis/build.openshift.io/v1/namespaces/will-dotnet-demo/buildconfigs/my-web-app-core/webhooks/ijb4UHA2cH1ye7CREXqn/github
-
 In GitHub, open the `myWebAppCore` project settings, and open Webhooks.
 
 Add webhook:
@@ -91,3 +89,6 @@ Add webhook:
 
 Try to push something to the GitHub repository to verify if webhook will auto trigger re-build and re-deployment.
 
+```bash
+watch oc get pods
+```
